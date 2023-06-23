@@ -53,8 +53,6 @@ class AlbumService {
     const resultSong = await this._pool.query(queryGetSongByAlbumId);
     const songs = resultSong.rows.map(helpers.responseSongs);
 
-    console.log(result.rows);
-
     return {
       ...result.rows.map(helpers.responseAlbum)[0],
       songs,
