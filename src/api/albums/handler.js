@@ -11,10 +11,6 @@ class AlbumsHandler {
     return h.response({ status: "success", data: { albumId } }).code(201);
   }
 
-  //   async getAlbumsHandler(request, h) {
-  //     const albums
-  //   }
-
   async getDetailAlbumByIdHandler(request, h) {
     const { id } = request.params;
 

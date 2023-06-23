@@ -1,14 +1,4 @@
 /* eslint-disable camelcase */
-// class Helpers {
-//   static createResponse(h, statusCode, status, message, data) {
-//     if (statusCode !== 201) {
-//       return h.response({ status, message }).code(statusCode);
-//     }
-//     return h.response({ status, data }).code(statusCode);
-//   }
-
-// }
-
 const helpers = {
   responseAlbum: ({ id, name, year }) => {
     return { id, name, year };

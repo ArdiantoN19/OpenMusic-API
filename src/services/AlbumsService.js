@@ -35,7 +35,6 @@ class AlbumService {
 
   async getDetailAlbumsById(id) {
     const query = {
-      // text: "SELECT * FROM albums a inner join songs s on s.album_id = a.id where a.id = $1",
       text: "SELECT * FROM albums where id = $1",
       values: [id],
     };
