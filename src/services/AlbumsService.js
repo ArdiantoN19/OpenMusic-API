@@ -12,11 +12,11 @@ class AlbumService {
   async addAlbum({ name, year }) {
     const id = `album-${nanoid(16)}`;
     const createdAt = new Date().toISOString();
-    const updatedAt = createdAt;
+    // const updatedAt = createdAt;
 
     const query = {
-      text: "INSERT INTO albums (id, name, year, created_at, updated_at) values ($1, $2, $3, $4, $5) RETURNING id",
-      values: [id, name, year, createdAt, updatedAt],
+      text: "INSERT INTO albums (id, name, year, created_at, updated_at) values ($1, $2, $3, $4, $4) RETURNING id",
+      values: [id, name, year, createdAt],
     };
 
     const result = await this._pool.query(query);
@@ -40,22 +40,11 @@ class AlbumService {
     };
 
     const result = await this._pool.query(query);
-    if (!result.rows.length) {
+    if (!result.rowCount) {
       throw new NotFoundError("Album tidak ditemukan");
     }
 
-    const queryGetSongByAlbumId = {
-      text: "SELECT * from songs WHERE album_id = $1",
-      values: [id],
-    };
-
-    const resultSong = await this._pool.query(queryGetSongByAlbumId);
-    const songs = resultSong.rows.map(helpers.responseSongs);
-
-    return {
-      ...result.rows.map(helpers.responseAlbum)[0],
-      songs,
-    };
+    return result.rows.map(helpers.responseAlbum)[0];
   }
 
   async updateAlbumById(id, { name, year }) {
@@ -68,7 +57,7 @@ class AlbumService {
 
     const result = await this._pool.query(query);
 
-    if (!result.rows.length) {
+    if (!result.rowCount) {
       throw new NotFoundError("Gagal mengubah album, id tidak ditemukan");
     }
   }
@@ -81,7 +70,7 @@ class AlbumService {
 
     const result = await this._pool.query(query);
 
-    if (!result.rows.length) {
+    if (!result.rowCount) {
       throw new NotFoundError("Gagal menghapus album, id tidak ditemukan");
     }
   }
