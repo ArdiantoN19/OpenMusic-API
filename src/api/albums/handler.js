@@ -1,7 +1,5 @@
 class AlbumsHandler {
-  constructor(service, validator) {
-    const { albumsService, songsService } = service;
-
+  constructor(albumsService, songsService, validator) {
     this._serviceAlbum = albumsService;
     this._serviceSong = songsService;
     this._validator = validator;
